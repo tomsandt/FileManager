@@ -4,7 +4,7 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		
-		DirReader.FileRead();
+		DirReader.FileRead(args[0]);
 
 	}
 
