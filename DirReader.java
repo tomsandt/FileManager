@@ -29,9 +29,9 @@ public class DirReader {
 		
 	}
 	
-	public static void FileRead() throws IOException {
+	public static void FileRead(String args) throws IOException {
 		
-		File folder = new File("");
+		File folder = new File(args);
 		File file[] = folder.listFiles();
 		
 		for(int i=0; i!=file.length; i++) {
