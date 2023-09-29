@@ -4,20 +4,22 @@ import java.nio.file.attribute.FileTime;
 import java.text.SimpleDateFormat;
 
 public class DirReader {
-	
+
 	String type;
-	String fpath;
-	String filename;
-	String filenamewithoutextension;
+	// name uniformity
+	String filePath;
+	// camel case!!!
+	String fileName;
+	String fileNameWithoutExtension;
 	String extension;
 	FileTime fileTime;
 	String modDate;
 	long creationDate;
 	long size;
 
-	
+	// names...
 	public DirReader(String type, String path, String filename, String filenamewithoutextension, String extension, FileTime fileTime, String modDate, long size) {
-		
+
 		this.type = type;
 		this.fpath = path;
 		this.filename = filename;
@@ -26,22 +28,34 @@ public class DirReader {
 		this.fileTime = fileTime;
 		this.modDate = modDate;
 		this.size = size;
-		
+
 	}
-	
+
+	// again, where is this exception being caught?
 	public static void FileRead(String args) throws IOException {
-		
+
 		File folder = new File(args);
 		File file[] = folder.listFiles();
-		
-		for(int i=0; i!=file.length; i++) {
-			
+
+		for(int i=0; i<file.length; i++) {
+
+			// would prefer non us date format
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-			
-			
-			DirReader dirReader = new DirReader(Type.checkType(file[i]), file[i].getPath(), file[i].getName(), file[i].getName().replaceAll("\\.\\w+", ""), Extension.getExtension(file[i]),creationTime.getCreationTime(file[i]), simpleDateFormat.format(file[i].lastModified()), file[i].length());
-				
-			
+
+            // while creating a new class for the different methods isn't necessarily incorrect its a bit overkill imo
+            // (checkType, getExtension, getCreationTime)
+			DirReader dirReader = new DirReader(
+                Type.checkType(file[i]),
+                file[i].getPath(),
+                file[i].getName(),
+                file[i].getName().replaceAll("\\.\\w+", ""),
+                Extension.getExtension(file[i]),
+                creationTime.getCreationTime(file[i]),
+                simpleDateFormat.format(file[i].lastModified()),
+                file[i].length()
+			);
+
+
 			System.out.println("----------------------------------------------------------------------------");
 			System.out.println("Dateityp: " + dirReader.getType());
 			System.out.println("Dateipfad: " + dirReader.getfPath());
@@ -53,9 +67,9 @@ public class DirReader {
 			System.out.println("Dateigröße: " + dirReader.getSize());
 			System.out.println("----------------------------------------------------------------------------");
 			System.out.println("");
-			
+
 		}
-		
+
 	}
 
 	public FileTime getFileTime() {
